@@ -1,59 +1,72 @@
 # 🌐 Cisco Network Automation Toolkit
 
-[![Python](https://img.shields.io/badge/Python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![Tests](https://img.shields.io/badge/Tests-151%20Passed-brightgreen?logo=pytest&logoColor=white)](tests/)
-[![Netmiko](https://img.shields.io/badge/Netmiko-v4.3%2B-blue)](https://github.com/ktbyers/netmiko)
-[![pyATS](https://img.shields.io/badge/Cisco-pyATS%20%2F%20Genie-049fd9?logo=cisco&logoColor=white)](https://developer.cisco.com/pyats/)
-[![Security](https://img.shields.io/badge/Security-Credential%20Sanitized-success)](security/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/Platform-Cisco%20IOS%20%7C%20IOS--XE-orange)]()
+<div align="center">
 
-> **Automated network device management, multi-dimensional health analysis (0–100 scoring), credential-scrubbed configuration backups, and Cisco pyATS/Genie validation for Cisco IOS and IOS-XE infrastructures.**
+[![Python Version](https://img.shields.io/badge/Python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Automated Tests](https://img.shields.io/badge/Tests-151%20Passed%20%E2%9C%93-brightgreen?style=for-the-badge&logo=pytest&logoColor=white)](tests/)
+[![Netmiko Version](https://img.shields.io/badge/Netmiko-v4.3%2B-blue?style=for-the-badge&logo=cisco&logoColor=white)](https://github.com/ktbyers/netmiko)
+[![Cisco pyATS](https://img.shields.io/badge/Cisco-pyATS%20%2F%20Genie-049fd9?style=for-the-badge&logo=cisco&logoColor=white)](https://developer.cisco.com/pyats/)
+[![Security Sanitized](https://img.shields.io/badge/Security-Credential%20Sanitized-success?style=for-the-badge&logo=shield&logoColor=white)](security/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
+
+<p align="center">
+  <b>An enterprise-grade Python automation framework for Cisco IOS & IOS-XE devices.</b><br>
+  Automates multi-device telemetry collection, 0–100 health scoring, credential-scrubbed configuration backups, and Cisco pyATS/Genie validation with zero-hardware demo support.
+</p>
+
+[Quick Start](#-quick-start-zero-hardware-required) •
+[Execution Modes](#-execution-modes--cli-reference) •
+[Health Scoring](#-health-scoring-algorithm--rules) •
+[Security & Scrubbing](#-security-architecture--config-sanitization) •
+[pyATS Validation](#-pyats--genie-validation-framework) •
+[Tests (151)](#-testing--quality-assurance-151-tests)
+
+</div>
 
 ---
 
 ## 📑 Table of Contents
 
-- [Overview & Value Proposition](#-overview--value-proposition)
-- [Key Features](#-key-features)
-- [System Architecture](#-system-architecture)
-- [Repository Structure](#-repository-structure)
-- [Quick Start (Zero Hardware Required)](#-quick-start-zero-hardware-required)
-- [Execution Modes & CLI Reference](#-execution-modes--cli-reference)
+- [📌 Overview & Value Proposition](#-overview--value-proposition)
+- [⚡ Key Features](#-key-features)
+- [🏗️ System Architecture & Workflow](#️-system-architecture--workflow)
+- [📂 Repository Structure](#-repository-structure)
+- [🚀 Quick Start (Zero Hardware Required)](#-quick-start-zero-hardware-required)
+- [💻 Execution Modes & CLI Reference](#-execution-modes--cli-reference)
   - [Mode 1: Offline Demo & Health Audit (`--demo`)](#mode-1-offline-demo--health-audit---demo)
-  - [Mode 2: Automated Config Backup & Scrubbing (`--backup`)](#mode-2-automated-config-backup--scrubbing---backup)
+  - [Mode 2: Automated Config Backup & Sanitization (`--backup`)](#mode-2-automated-config-backup--sanitization---backup)
   - [Mode 3: Live Device Collection via SSH (`--collect`)](#mode-3-live-device-collection-via-ssh---collect)
-  - [Mode 4: Cisco pyATS/Genie Validation (`--validate`)](#mode-4-cisco-pyatsgenie-validation---validate)
-  - [Mode 5: HTML Report Re-generation (`--report`)](#mode-5-html-report-re-generation---report)
-  - [Mode 6: CLI Quick Health Summary (`show_health.py`)](#mode-6-cli-quick-health-summary-show_healthpy)
-- [Health Scoring Algorithm & Rules](#-health-scoring-algorithm--rules)
-  - [OSPF Adjacency & DROTHER 2WAY Handling](#ospf-adjacency--drother-2way-handling)
-- [Security Architecture & Config Sanitization](#-security-architecture--config-sanitization)
-- [Parsed Cisco IOS Commands Reference](#-parsed-cisco-ios-commands-reference)
-- [Testing & Quality Assurance (151 Tests)](#-testing--quality-assurance-151-tests)
-- [Device Inventory Management](#-device-inventory-management)
-- [pyATS & Genie Validation Framework](#-pyats--genie-validation-framework)
-- [Platform Compatibility & Lab Setup](#-platform-compatibility--lab-setup)
-- [Troubleshooting & FAQ](#-troubleshooting--faq)
-- [Technical Audits & Architecture Documentation](#-technical-audits--architecture-documentation)
-- [License & Authors](#-license--authors)
+  - [Mode 4: Cisco pyATS / Genie Validation (`--validate`)](#mode-4-cisco-pyats--genie-validation---validate)
+  - [Mode 5: HTML Dashboard Re-generation (`--report`)](#mode-5-html-dashboard-re-generation---report)
+  - [Mode 6: CLI Quick Health Viewer (`show_health.py`)](#mode-6-cli-quick-health-viewer-show_healthpy)
+- [📊 Health Scoring Algorithm & Rules](#-health-scoring-algorithm--rules)
+  - [OSPF Adjacency & Intelligent DROTHER 2WAY Handling](#ospf-adjacency--intelligent-drother-2way-handling)
+- [🔐 Security Architecture & Credential Scrubbing](#-security-architecture--credential-scrubbing)
+- [📡 Parsed Cisco IOS Commands Reference](#-parsed-cisco-ios-commands-reference)
+- [🧪 Testing & Quality Assurance (151 Tests)](#-testing--quality-assurance-151-tests)
+- [📋 Device Inventory Management](#-device-inventory-management)
+- [🔬 pyATS & Genie Validation Framework](#-pyats--genie-validation-framework)
+- [🌐 Platform Compatibility & Lab Setup](#-platform-compatibility--lab-setup)
+- [❓ Troubleshooting & FAQ](#-troubleshooting--faq)
+- [📚 Technical Audits & Architecture Documentation](#-technical-audits--architecture-documentation)
+- [📄 License & Authors](#-license--authors)
 
 ---
 
-## 🎯 Overview & Value Proposition
+## 📌 Overview & Value Proposition
 
-In enterprise networks managing dozens or hundreds of Cisco routers and switches, manual CLI audits via SSH are slow, error-prone, and unscalable. 
+Auditing enterprise Cisco environments manually via SSH is repetitive, slow, and prone to human error. Manually inspecting 50 to 500+ routers and switches for interface drops, OSPF adjacency states, CPU/memory spikes, and missing backups consumes hours of engineering time.
 
-The **Cisco Network Automation Toolkit** provides a complete, robust automation pipeline that connects to network devices, executes diagnostic commands, parses unformatted CLI text into structured JSON models, evaluates real-time device health across 7 weighted dimensions, scrubs sensitive credentials from running configs, and renders an executive HTML5 dashboard.
+The **Cisco Network Automation Toolkit** provides a complete end-to-end Python pipeline that automates device discovery, executes diagnostic telemetry commands, parses unformatted Cisco CLI streams into structured JSON data models, computes a 7-dimension weighted health score, redacts credentials from configuration backups, and generates an executive HTML5 dashboard.
 
-### ⏱️ The Automation Advantage
+### ⏱️ Before vs. After Comparison
 
 ```
 ┌────────────────────────────────────────┐       ┌────────────────────────────────────────┐
 │           BEFORE (Manual CLI)          │       │         AFTER (Automated Pipeline)     │
 ├────────────────────────────────────────┤       ├────────────────────────────────────────┤
 │ • SSH into R1, R2, R3, SW1, SW2...     │       │ • Run: python main.py --demo (or live) │
-│ • Manually run 9 commands per box      │  ───► │ • Automatic concurrent/batched SSH     │
+│ • Manually run 9 commands per box      │  ───► │ • Automated concurrent/batched SSH     │
 │ • Eyeball routing tables & OSPF states │       │ • Structured regex parsing to JSON     │
 │ • Write manual notes on paper/Word     │       │ • Weighted 0–100 health scoring        │
 │ • Passwords exposed in raw configs     │       │ • Auto-scrubbed configs (<REDACTED>)   │
@@ -61,33 +74,33 @@ The **Cisco Network Automation Toolkit** provides a complete, robust automation 
 └────────────────────────────────────────┘       └────────────────────────────────────────┘
 ```
 
-### 🏆 Engineering Skills Demonstrated
+### 🏆 Engineering Highlights
 
-| Competency | Implementation in this Project |
+| Competency | Implementation in this Repository |
 |---|---|
-| **Python Network Automation** | End-to-end data pipeline using object-oriented, modular design |
-| **Cisco CLI & Protocols** | Deep parsing of IOS outputs: OSPF states (DR/BDR/DROTHER), CPU/Memory, VLANs, MAC tables |
-| **Resilient SSH Layer** | `Netmiko` & `Paramiko` connection management with retry logic, timeouts, and custom exceptions |
-| **Enterprise Security** | Multi-pattern regex config sanitization, environment variable credential sourcing, `.env` isolation |
+| **Python Automation** | Clean, modular Python 3 architecture with strict separation of concerns |
+| **Cisco CLI & Protocols** | High-precision parsing of OSPF (DR/BDR/DROTHER), routing tables, CPU/memory, and VLANs |
+| **Resilient SSH Layer** | Netmiko & Paramiko connection wrapper with exponential retry logic and custom domain exceptions |
+| **Enterprise Security** | Multi-pattern regex credential redaction, safe environment variables, and gitignored secrets |
 | **Validation Frameworks** | Cisco `pyATS` / `Genie` structured testbed validation (PASS/FAIL tests) |
-| **Automated Testing** | **151 unit, edge-case, and integration tests** ensuring zero regressions |
-| **Executive Reporting** | `Jinja2` templating engine generating responsive, searchable HTML5 dashboards |
+| **Comprehensive Testing** | **151 automated tests** covering unit parsers, route edge cases, scoring, and end-to-end flows |
+| **Executive Reporting** | Responsive HTML5 / Jinja2 glassmorphic dashboard with severity badges and health summaries |
 
 ---
 
-## ✨ Key Features
+## ⚡ Key Features
 
-- **🚀 100% Offline Demo Mode**: Test and evaluate the entire pipeline with realistic mock devices without needing any physical Cisco hardware or virtual labs.
-- **📊 Multi-Dimensional Health Scoring (0–100)**: Evaluates device reachability, interface health, OSPF neighbor states, CPU utilization, memory pressure, VLAN configuration, and routing tables.
-- **🧠 Protocol-Aware OSPF Logic**: Intelligently accounts for OSPF broadcast network topology, recognizing `2WAY/DROTHER` as valid behavior rather than falsely penalizing device health.
-- **🔒 Zero-Leak Credential Scrubbing**: Automatically sanitizes `enable secrets`, user passwords, SNMP communities, ISAKMP pre-shared keys, and TACACS/RADIUS keys before saving backups.
-- **📱 Responsive HTML5 Dashboard**: Modern, glassmorphic executive dashboard generated via Jinja2 with device summary cards, alert severity badges, and detailed status tables.
-- **🧪 Industry-Standard pyATS Integration**: Ready-to-use validation runner for Cisco pyATS/Genie testbeds on Linux/WSL environments.
-- **🛡️ 151 Automated Tests**: Full test suite covering regex parsers, edge cases (route types, subnets, zero division), connection retries, inventory parsing, and security scrubbers.
+- **🚀 100% Offline Demo Mode**: Experience the full collection, scoring, and reporting pipeline with realistic mock devices without needing physical hardware or virtual labs.
+- **📊 0–100 Multi-Dimensional Health Scoring**: Evaluates reachability, interface health, OSPF states, CPU utilization, memory pressure, VLAN configuration, and routing tables.
+- **🧠 Protocol-Aware OSPF Logic**: Intelligently handles OSPF broadcast networks — recognizes `2WAY/DROTHER` neighbor states as healthy rather than penalizing device scores.
+- **🔒 Zero-Leak Credential Redaction**: Automatically scrubs `enable secret`, user passwords, SNMP communities, ISAKMP pre-shared keys, and TACACS/RADIUS keys before saving configs to disk.
+- **📱 Modern HTML5 Dashboard**: Automatically generates an executive dashboard (`network_report.html`) complete with status cards, alert lists, and detailed device telemetry.
+- **🔬 Cisco pyATS/Genie Test Runner**: Built-in testbed test runner for running structured PASS/FAIL assertions against network state.
+- **🛡️ 151 Automated Tests**: 100% passing test coverage verifying parsers, scoring calculations, connection retries, edge cases, and security sanitization.
 
 ---
 
-## 🏗️ System Architecture
+## 🏗️ System Architecture & Workflow
 
 ```
                                   ┌──────────────────────────┐
@@ -131,17 +144,17 @@ The **Cisco Network Automation Toolkit** provides a complete, robust automation 
 
 ```mermaid
 flowchart TD
-    A[inventory/devices.csv] --> B[core/inventory.py]
+    A[inventory/devices.csv] --> B[core/inventory.py: Inventory Loader]
     B --> C{Execution Mode}
-    C -->|--demo| D[mock/mock_devices.py]
+    C -->|--demo| D[mock/mock_devices.py: Mock Telemetry]
     C -->|--collect / --backup| E[network/connection.py: Netmiko SSH]
-    D --> F[collector/parsers.py: 9 Parsers]
+    D --> F[collector/parsers.py: 9 Regex Parsers]
     E --> F
-    E -->|Raw Config| G[security/config_scrubber.py]
-    G --> H[(backups/*.txt)]
-    F --> I[analysis/health_check.py: Scoring Engine]
-    I --> J[(data/*.json)]
-    J --> K[reports/report_generator.py]
+    E -->|Raw Config| G[security/config_scrubber.py: Regex Redactor]
+    G --> H[(backups/hostname_date.txt)]
+    F --> I[analysis/health_check.py: 0-100 Scoring Engine]
+    I --> J[(data/hostname.json)]
+    J --> K[reports/report_generator.py: Jinja2 Renderer]
     K --> L[reports_output/network_report.html]
 ```
 
@@ -151,24 +164,24 @@ flowchart TD
 
 ```
 cisco-network-automation/
-├── main.py                     # Unified CLI entry point for all modes
-├── show_health.py              # Quick terminal health score and alert viewer
+├── main.py                     # Unified CLI entry point for all execution modes
+├── show_health.py              # Fast CLI health summary & alert breakdown viewer
 ├── requirements.txt            # Core production dependencies (Netmiko, Jinja2, Rich, etc.)
 ├── requirements-pyats.txt      # Optional Cisco pyATS & Genie dependencies (Linux/WSL)
-├── .env.example                # Template for safe credential configuration
-├── .gitignore                  # Git ignore rules (protects .env, backups, logs, data)
+├── .env.example                # Safe template for network credentials
+├── .gitignore                  # Git ignore rules (protects credentials, logs, and backups)
 │
 ├── analysis/                   # Health analysis and scoring engine
 │   └── health_check.py         # 7-dimension weighted 0–100 scoring & alert engine
 │
 ├── backup/                     # Configuration backup orchestrator
-│   └── backup_tool.py          # Standalone/modular backup runner with retry logic
+│   └── backup_tool.py          # Modular config backup runner with retry logic
 │
 ├── collector/                  # Data collection and command parsing
 │   ├── info_collector.py       # SSH collection workflow and JSON exporter
 │   └── parsers.py              # Pure regex parsers for 9 Cisco IOS commands
 │
-├── config/                     # Centralized settings and constants
+├── config/                     # Centralized project configuration
 │   └── settings.py             # Paths, thresholds, timeouts, and scoring weights
 │
 ├── core/                       # Shared utility infrastructure
@@ -178,11 +191,11 @@ cisco-network-automation/
 │
 ├── network/                    # Network abstraction and connection layer
 │   ├── commands.py             # Cisco IOS command definitions
-│   ├── connection.py           # Netmiko DeviceConnector wrapper with retries
-│   └── exceptions.py           # Domain exceptions (DeviceUnreachableError, etc.)
+│   ├── connection.py           # Netmiko DeviceConnector wrapper with retry logic
+│   └── exceptions.py           # Custom domain exceptions (DeviceUnreachableError, etc.)
 │
 ├── security/                   # Security and sanitization
-│   └── config_scrubber.py      # Regex redaction of credentials in running configs
+│   └── config_scrubber.py      # Regex redaction of secrets in running configs
 │
 ├── validation/                 # Cisco pyATS / Genie validation
 │   ├── pyats_runner.py         # Testbed test runner (Connectivity, VLAN, OSPF, etc.)
@@ -201,8 +214,8 @@ cisco-network-automation/
 ├── inventory/                  # Target device inventory
 │   └── devices.csv             # CSV device list (hostname, IP, role, enabled)
 │
-├── docs/                       # Architecture, security, and lab testing documentation
-│   ├── architecture-audit.md   # Architectural design and refactoring audit
+├── docs/                       # Technical audits and lab guides
+│   ├── architecture-audit.md   # Architecture design and refactoring audit
 │   ├── cisco-validation-review.md # pyATS validation review and guidelines
 │   ├── failure-testing.md      # Controlled lab failure testing manual
 │   └── security-audit.md       # Security findings and credential hygiene review
@@ -226,7 +239,7 @@ cisco-network-automation/
 
 ## 🚀 Quick Start (Zero Hardware Required)
 
-You can run and test the complete pipeline immediately without any Cisco equipment.
+You can run and evaluate the complete automation pipeline right away without needing any physical Cisco devices.
 
 ### Step 1: Clone the repository
 
@@ -235,18 +248,19 @@ git clone https://github.com/rohitr01/Cisco-Network-Automation.git
 cd Cisco-Network-Automation
 ```
 
-### Step 2: Install dependencies
+### Step 2: Set up a virtual environment & install dependencies
 
 ```bash
-# Recommended: Create and activate a virtual environment
+# Create virtual environment
 python -m venv venv
 
+# Activate virtual environment
 # Windows:
 venv\Scripts\activate
 # Linux/macOS:
 source venv/bin/activate
 
-# Install required packages
+# Install core packages
 pip install -r requirements.txt
 ```
 
@@ -259,26 +273,26 @@ python main.py --demo
 **What happens instantly:**
 1. Loads 5 mock devices (`R1`, `R2`, `R3`, `SW1`, `SW2`) from `inventory/devices.csv`.
 2. Parses simulated Cisco outputs across all 9 diagnostic commands.
-3. Calculates a 0–100 health score for every device.
+3. Computes a 0–100 health score for every device.
 4. Generates structured JSON files in `data/`.
-5. Builds an interactive HTML dashboard at `reports_output/network_report.html`.
-6. Prints a formatted Rich summary table in your terminal.
+5. Compiles an executive HTML dashboard at `reports_output/network_report.html`.
+6. Prints a formatted summary table to your terminal.
 
 ---
 
 ## 💻 Execution Modes & CLI Reference
 
-`main.py` provides a unified CLI with specialized operational modes:
+`main.py` is the unified command-line entry point with dedicated flags for each workflow:
 
 ### Mode 1: Offline Demo & Health Audit (`--demo`)
 
-Runs full collection, health scoring, JSON export, and HTML report generation using offline mock devices:
+Executes the complete collection, parsing, health scoring, JSON export, and HTML report generation pipeline using offline mock devices:
 
 ```bash
 python main.py --demo
 ```
 
-**Sample Terminal Output:**
+**Sample Output:**
 ```
 ======================================================================
   NETWORK HEALTH SCORE SUMMARY
@@ -295,20 +309,20 @@ SW2            0/100  F      UNREACHABLE    Device is unreachable
 
 ---
 
-### Mode 2: Automated Config Backup & Scrubbing (`--backup`)
+### Mode 2: Automated Config Backup & Sanitization (`--backup`)
 
-Backs up `show running-config` from devices and scrubs all sensitive credentials before writing to disk:
+Fetches `show running-config` from devices and scrubs all sensitive passwords, secrets, and keys before writing files to disk:
 
 ```bash
 # Demo backup (mock devices):
 python main.py --demo --backup
 
-# Live network backup:
+# Live network backup (prompts for SSH credentials):
 python main.py --backup --prompt
 ```
 
-**Generated Backup Artifacts:**
-- Output directory: `backups/<hostname>_<YYYY-MM-DD>.txt`
+**Output Artifacts:**
+- Directory: `backups/<hostname>_<YYYY-MM-DD>.txt`
 - Passwords, hashes, and SNMP community strings are replaced with `<REDACTED>`.
 
 ---
@@ -318,29 +332,29 @@ python main.py --backup --prompt
 Connects to real Cisco routers and switches in your lab or production network via Netmiko:
 
 ```bash
-# Option A: Interactive credential prompt (recommended for interactive use)
+# Option A: Interactive prompt (recommended for interactive CLI runs)
 python main.py --collect --prompt
 
 # Option B: Using .env file
 cp .env.example .env
-# Edit .env with your NET_USERNAME, NET_PASSWORD, NET_SECRET
+# Edit .env with NET_USERNAME, NET_PASSWORD, NET_SECRET
 python main.py --collect
 
-# Option C: Custom inventory CSV file
-python main.py --collect --prompt --inventory /path/to/custom_devices.csv
+# Option C: Custom inventory CSV
+python main.py --collect --prompt --inventory /path/to/my_inventory.csv
 ```
 
 ---
 
-### Mode 4: Cisco pyATS/Genie Validation (`--validate`)
+### Mode 4: Cisco pyATS / Genie Validation (`--validate`)
 
-Executes structured PASS/FAIL validation against a Cisco pyATS testbed (Linux / WSL only):
+Runs structured PASS/FAIL assertions against a Cisco pyATS testbed (Linux / WSL only):
 
 ```bash
 # 1. Install pyATS packages
 pip install -r requirements-pyats.txt
 
-# 2. Configure your testbed
+# 2. Configure testbed
 cp validation/testbed.yaml.example validation/testbed.yaml
 # Edit validation/testbed.yaml with your device IPs and credentials
 
@@ -350,9 +364,9 @@ python main.py --validate
 
 ---
 
-### Mode 5: HTML Report Re-generation (`--report`)
+### Mode 5: HTML Dashboard Re-generation (`--report`)
 
-Re-compiles the HTML dashboard from existing `data/*.json` files without re-connecting to network devices:
+Re-compiles the HTML dashboard from existing `data/*.json` files without reconnecting to network devices:
 
 ```bash
 python main.py --report
@@ -360,7 +374,7 @@ python main.py --report
 
 ---
 
-### Mode 6: CLI Quick Health Summary (`show_health.py`)
+### Mode 6: CLI Quick Health Viewer (`show_health.py`)
 
 A lightweight CLI viewer to inspect parsed health scores, sub-dimension weight bars, and active alerts directly in the terminal:
 
@@ -374,44 +388,44 @@ python show_health.py
 
 Each device receives an objective health score (0–100) calculated across 7 weighted dimensions:
 
-| Dimension | Max Points | Evaluation Logic | Penalty Criteria |
+| Dimension | Max Weight | Diagnostic Command | Penalties & Failure Conditions |
 |---|:---:|---|---|
-| **Reachable** | `20` | SSH connectivity test | Complete failure (`0/100`) if unreachable |
-| **Interfaces** | `20` | `show ip interface brief` | Points deducted for non-admin interfaces in `down/down` state |
-| **OSPF Neighbors** | `20` | `show ip ospf neighbor` | Deductions for missing neighbors or neighbors stuck in `INIT`/`ATTEMPT` |
-| **CPU Utilization** | `10` | `show processes cpu sorted` | Warning if CPU > 75%, Critical deduction if CPU > 85% |
-| **Memory Pressure** | `10` | `show processes memory sorted` | Warning if Memory > 80%, Critical deduction if Memory > 90% |
-| **VLAN Integrity** | `10` | `show vlan brief` (Switches) | Deductions if VLAN database is unconfigured or corrupted |
-| **Routing Table** | `10` | `show ip route` (Routers) | Deductions if routing table is empty or missing expected default/dynamic routes |
+| **Reachable** | `20 pts` | SSH TCP Handshake | Complete failure (`0/100`) if unreachable |
+| **Interfaces** | `20 pts` | `show ip interface brief` | Points deducted for non-admin interfaces in `down/down` state |
+| **OSPF Neighbors** | `20 pts` | `show ip ospf neighbor` | Deductions for missing neighbors or neighbors stuck in `INIT`/`ATTEMPT` |
+| **CPU Utilization** | `10 pts` | `show processes cpu sorted` | Warning if CPU > 75%, Critical deduction if CPU > 85% |
+| **Memory Pressure** | `10 pts` | `show processes memory sorted` | Warning if Memory > 80%, Critical deduction if Memory > 90% |
+| **VLAN Integrity** | `10 pts` | `show vlan brief` (Switches) | Deductions if VLAN database is empty or unconfigured |
+| **Routing Table** | `10 pts` | `show ip route` (Routers) | Deductions if routing table is empty or missing routes |
 
 ### 📈 Health Grading Scale
 
-| Score | Grade | Status Classification | Action Required |
+| Score Range | Grade | Status Classification | Action Required |
 |---|:---:|---|---|
-| **90 – 100** | `A` | **HEALTHY** | No immediate action required |
-| **75 – 89** | `B` | **GOOD** | Minor warnings observed; review logs |
-| **60 – 74** | `C` | **DEGRADED** | Action recommended; potential bottleneck or neighbor loss |
-| **40 – 59** | `D` | **CRITICAL** | Immediate attention required; major protocol or link down |
+| **90 – 100** | `A` | **HEALTHY** | Operational; all parameters within limits |
+| **75 – 89** | `B` | **GOOD** | Minor warnings observed; non-critical |
+| **60 – 74** | `C` | **DEGRADED** | Action recommended; link down or CPU/memory pressure |
+| **40 – 59** | `D` | **CRITICAL** | Immediate attention required; major protocol or link failure |
 | **0 – 39** | `F` | **UNREACHABLE / FAILING** | Device unreachable or multiple critical outages |
 
-### OSPF Adjacency & DROTHER 2WAY Handling
+### OSPF Adjacency & Intelligent DROTHER 2WAY Handling
 
 On multi-access broadcast networks (e.g., Ethernet segments), OSPF establishes:
 - **FULL** adjacencies with the Designated Router (`DR`) and Backup Designated Router (`BDR`).
 - **2WAY** neighbor state between non-designated routers (`DROTHER`).
 
 > [!IMPORTANT]
-> Naive automation scripts often misclassify `2WAY` states on DROTHER devices as network failures. This toolkit implements **context-aware OSPF analysis**: `2WAY/DROTHER` is parsed as normal operation (`INFO` status) and does not penalize the health score. States such as `INIT`, `EXSTART`, or missing neighbors correctly trigger `CRITICAL` penalties.
+> Naive automation scripts often misclassify `2WAY` states on DROTHER devices as network failures. This toolkit implements **context-aware OSPF analysis**: `2WAY/DROTHER` is recognized as normal RFC-compliant operation (`INFO` status) and does not deduct health points. States such as `INIT`, `EXSTART`, `DOWN`, or missing neighbors correctly trigger `CRITICAL` penalties.
 
 ---
 
-## 🔒 Security Architecture & Config Sanitization
+## 🔐 Security Architecture & Credential Scrubbing
 
-Network automation scripts must never expose administrative credentials. This project enforces strict security guardrails:
+Network automation tools must ensure administrative credentials are never leaked. This project implements strict enterprise security practices:
 
 ### 🛡️ Regex Credential Redaction Engine
 
-When `backup_tool.py` or `main.py --backup` runs, `security/config_scrubber.py` applies high-precision regular expressions to redact secret material:
+When running backups (`main.py --backup` or `backup/backup_tool.py`), `security/config_scrubber.py` applies multi-pattern regular expressions to sanitize secret material:
 
 ```
 [RAW CONFIG FROM DEVICE]                         [SAVED TO BACKUPS/*.TXT]
@@ -432,7 +446,7 @@ tacacs-server key 7 08324C4A0D10        ───►     tacacs-server key 7 <RE
 
 ### 🚫 Git Protection Rules
 
-The `.gitignore` strictly isolates runtime artifacts and secrets:
+The repository's `.gitignore` isolates all runtime artifacts and secrets:
 - `.env` and `*.env`
 - `backups/*.txt`
 - `data/*.json`
@@ -491,7 +505,7 @@ python -m unittest tests/test_parsers.py -v
 
 ## 📋 Device Inventory Management
 
-Device targets are defined in `inventory/devices.csv`:
+Device targets are configured in `inventory/devices.csv`:
 
 ```csv
 hostname,ip,device_type,role,enabled
@@ -508,13 +522,13 @@ SW2,192.168.1.11,cisco_ios,switch,false
 - `ip` *(Required)*: Management IPv4/IPv6 address.
 - `device_type` *(Optional)*: Netmiko driver (defaults to `cisco_ios`).
 - `role` *(Optional)*: `router` or `switch` (controls device-specific audit rules).
-- `enabled` *(Optional)*: Set to `false` to skip the device during execution without deleting its record.
+- `enabled` *(Optional)*: Set to `false` to skip a device during execution without deleting its record.
 
 ---
 
 ## 🔬 pyATS & Genie Validation Framework
 
-For organizations utilizing Cisco's official test automation framework, the `validation/` module integrates **pyATS** and **Genie**.
+For teams utilizing Cisco's official test automation framework, the `validation/` module provides **pyATS** and **Genie** integration.
 
 ### Comparison: Netmiko vs. pyATS
 
@@ -571,7 +585,7 @@ devices:
 <summary><b>1. Error: <code>NetmikoTimeoutException</code> or connection timed out</b></summary>
 
 - Verify management IP reachability via `ping <device_ip>`.
-- Ensure SSH is configured on the Cisco device (`ip ssh version 2`, `transport input ssh` under `line vty`).
+- Ensure SSH is enabled on the Cisco device (`ip ssh version 2`, `transport input ssh` under `line vty`).
 - Check firewall / ACL rules between your workstation and the target device.
 </details>
 
@@ -585,7 +599,7 @@ devices:
 <details>
 <summary><b>3. Why does pyATS validation fail on Windows?</b></summary>
 
-- Cisco pyATS core libraries natively require POSIX system calls and only run on Linux or macOS.
+- Cisco pyATS core libraries require POSIX system calls and only run on Linux or macOS.
 - On Windows, install and run pyATS inside **WSL (Windows Subsystem for Linux)**. The rest of the toolkit works seamlessly on native Windows.
 </details>
 
@@ -616,5 +630,4 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 **Rohit Rohaj**
 - GitHub: [@rohitr01](https://github.com/rohitr01)
-- Repository: [Cisco-Network-Automation](https://github.com/rohitr01/Cisco-Network-Automation)#   C i s c o - N e t w o r k - A u t o m a t i o n  
- 
+- Repository: [Cisco-Network-Automation](https://github.com/rohitr01/Cisco-Network-Automation)
