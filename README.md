@@ -622,3 +622,5 @@ python -m unittest tests/test_parsers.py -v        # Run one test file
 | **CSV** | Inventory format | Simple, human-readable device list — no complex config files |
 | **JSON** | Data storage format | Structured output for each device — easy to process programmatically |
 | **HTML** | Report format | Visual dashboard — open in any browser, no install needed |
+#   C i s c o - N e t w o r k - A u t o m a t i o n  
+ 
