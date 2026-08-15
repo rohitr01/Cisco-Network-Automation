@@ -1,0 +1,4 @@
+# pyATS/Genie validation requirements
+# Requires Python 3.9-3.12 on Linux (or WSL on Windows)
+pyats>=24.0
+genie>=24.0

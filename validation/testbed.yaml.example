@@ -1,0 +1,49 @@
+# pyATS Testbed Definition
+# ========================
+# Copy this file to testbed.yaml and fill in your credentials.
+# NEVER commit testbed.yaml to version control.
+#
+# Credential sources (in order of preference):
+#   1. Environment variables: PYATS_USERNAME, PYATS_PASSWORD
+#   2. Values in this file (for lab/test environments only)
+
+testbed:
+  name: cisco-lab
+  credentials:
+    default:
+      username: "%ENV{PYATS_USERNAME}"
+      password: "%ENV{PYATS_PASSWORD}"
+
+devices:
+  R1:
+    os: iosxe
+    type: router
+    connections:
+      defaults:
+        class: unicon.Unicon
+      cli:
+        protocol: ssh
+        ip: 192.168.1.1
+        port: 22
+
+  R2:
+    os: iosxe
+    type: router
+    connections:
+      defaults:
+        class: unicon.Unicon
+      cli:
+        protocol: ssh
+        ip: 192.168.1.2
+        port: 22
+
+  SW1:
+    os: iosxe
+    type: switch
+    connections:
+      defaults:
+        class: unicon.Unicon
+      cli:
+        protocol: ssh
+        ip: 192.168.1.10
+        port: 22
